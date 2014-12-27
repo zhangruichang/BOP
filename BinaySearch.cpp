@@ -29,6 +29,8 @@ public:
     }
 };
 */
+
+//find any index that == v
 int bs_findv(int a[], int n, int v)
 {
     int low=0, high=n-1;
@@ -43,7 +45,7 @@ int bs_findv(int a[], int n, int v)
     }
     return -1;
 }
-
+//find min i that == v
 int bs_find_miniev(int a[], int n, int v)
 {
     int low=0, high=n-1;
@@ -60,7 +62,7 @@ int bs_find_miniev(int a[], int n, int v)
     }
     return -1;
 }
-
+//find maxi that == v
 int bs_find_maxiev(int a[], int n, int v)
 {
     int low=0, high=n-1;
@@ -78,7 +80,7 @@ int bs_find_maxiev(int a[], int n, int v)
     }
     return -1;
 }
-
+//find maxi that < v
 int bs_find_maxilessv(int a[], int n, int v)
 {
     int low=0, high=n-1;
@@ -96,7 +98,7 @@ int bs_find_maxilessv(int a[], int n, int v)
     }
     return -1;
 }
-
+//find mini that > v
 int bs_find_minigreaterv(int a[], int n, int v)
 {
     int low=0, high=n-1;
@@ -113,6 +115,8 @@ int bs_find_minigreaterv(int a[], int n, int v)
     }
     return -1;
 }
+
+
 int a[]={1,2,3,3,3,3,3,4,6,6,6,6};
 int n;
 
