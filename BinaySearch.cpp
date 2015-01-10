@@ -10,6 +10,8 @@
 #include<set>
 #include<map>
 #include<stack>
+#include<list>
+#include<ctime>
 #include<climits>
 #include <unordered_set>
 #include <unordered_map>
@@ -21,109 +23,83 @@ typedef unsigned long long ULL;
 #define mp make_pair
 #define pb push_back
 #define CLR(a,x) memset(a,x,sizeof(a))
-/*
-class Solution {
-public:
-    vector<Interval> insert(vector<Interval> &intervals, Interval newInterval) {
 
-    }
-};
-*/
-
-//find any index that == v
-int bs_findv(int a[], int n, int v)
+int BS(int A[], int n, int x)
 {
     int low=0, high=n-1;
     while(low<=high)
     {
         int mid=(low+high)/2;
-        if(a[mid]>v)
-            high=mid-1;
-        else if(a[mid] < v)
-            low=mid+1;
-        else return mid;
-    }
-    return -1;
-}
-//find min i that == v
-int bs_find_miniev(int a[], int n, int v)
-{
-    int low=0, high=n-1;
-    while(low<=high)
-    {
-        if(low == high) return a[low] == v ? low : -1;
-        int mid=(low+high)/2;
-        if(a[mid]>v)
-            high=mid-1;
-        else if(a[mid] < v)
-            low=mid+1;
+        if(A[mid] < x) low=mid+1;
+        else if(A[mid] > x) high=mid-1;
         else
-            high=mid;
+            return mid;
     }
     return -1;
 }
-//find maxi that == v
-int bs_find_maxiev(int a[], int n, int v)
+
+int BS_MaxIEqualX(int A[], int n, int x)
 {
     int low=0, high=n-1;
     while(low<=high)
     {
-        if(low == high) return low;
-        if(low + 1 == high) return a[high]==v ? high : (a[low] == v ? low : -1);
+        if(low==high) return A[low]==x ? low : -1;
+        if(low+1==high) return A[high]==x ? high : (A[low]==x ? low : -1);//two ele not process, may nonterminal loop
         int mid=(low+high)/2;
-        if(a[mid]>v)
-            high=mid-1;
-        else if(a[mid] < v)
-            low=mid+1;
+        if(A[mid] < x) low=mid+1;
+        else if(A[mid] > x) high=mid-1;
         else
             low=mid;
     }
     return -1;
 }
-//find maxi that < v
-int bs_find_maxilessv(int a[], int n, int v)
+
+int BS_MinIEqualX(int A[], int n, int x)
 {
     int low=0, high=n-1;
     while(low<=high)
     {
-        if(low == high) return a[low] < v ? low : -1;
-        if(low + 1 == high) return a[high] < v ? high : (a[low] < v ? low : -1);
+        if(low==high) return A[low]==x ? low : -1;
         int mid=(low+high)/2;
-        if(a[mid]>v)
-            high=mid-1;
-        else if(a[mid] < v)
-            low=mid;
-        else
-            high=mid-1;
+        if(A[mid] < x) low=mid+1;
+        else if(A[mid] > x) high=mid-1;
+        else high=mid;
     }
     return -1;
 }
-//find mini that > v
-int bs_find_minigreaterv(int a[], int n, int v)
+
+int BS_MaxILowerX(int A[], int n, int x)
 {
     int low=0, high=n-1;
     while(low<=high)
     {
-        if(low == high) return a[low] > v ? low : -1;
+        if(low==high) return A[low]<x ? low : -1;
+        if(low+1==high) return A[high] < x ? high : (A[low] < x ? low : -1);
         int mid=(low+high)/2;
-        if(a[mid]>v)
-            high=mid;
-        else if(a[mid] < v)
-            low=mid+1;
-        else
-            low=mid+1;
-    }
-    return -1;
+        if(A[mid] < x) low=mid;
+        else high=mid-1;
+    }//do not exit loop
 }
 
-
-int a[]={1,2,3,3,3,3,3,4,6,6,6,6};
-int n;
+int BS_MinIHigherX(int A[], int n, int x)
+{
+    int low=0, high=n-1;
+    while(low<=high)
+    {
+        if(low==high) return A[low]>x ? low : -1;
+        //if(low+1==high) return A[high] < x ? high : (A[low] < x ? low : -1);
+        int mid=(low+high)/2;
+        if(A[mid] <= x) low=mid+1;
+        else high=mid;
+    }//do not exit loop
+}
 
 int main()
 {
-    n=sizeof(a)/sizeof(int);
-    int v=3;
-    cout<<bs_findv(a,n,v)<<" "<<bs_find_miniev(a,n,v)<<" "<<bs_find_maxiev(a,n,v)<<" "<<bs_find_maxilessv(a,n,v)<<" "<<bs_find_minigreaterv(a,n,v)<<endl;
+    int A[]={1,2,3,4,4,4,4,5,5,5,5,6,6,7,8,9,9};
+    int n=sizeof(A)/sizeof(int);cout<<n<<endl;
+    int x=-100;
+    cout<<BS(A, n, x)<<endl<<BS_MaxIEqualX(A,n,x)<<endl<<BS_MinIEqualX(A,n,x)<<endl<<BS_MaxILowerX(A,n,x)
+    <<endl<<BS_MinIHigherX(A,n,x)<<endl;
 	return 0;
 }
