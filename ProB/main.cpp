@@ -50,7 +50,7 @@ int GCD(int m, int n)
 {
     return !m ? n : GCD(n%m, m);
 }
-LL MultMod(LL a,LL b,LL MOD){
+LL MultMod(LL a,LL b){
     a %= MOD;
     b %= MOD;
     LL ret = 0;
@@ -95,7 +95,12 @@ int main()
         //cout<<MultMod(n, n+1, MOD)<<endl;
         //cout<<MultMod(n,n, MOD)<<endl;
         //cout<<MultMod(3LL, n, MOD)<<endl;
-        cout<<(MultMod(n, n+1, MOD)*MultMod(n, n+1, MOD)*( (MultMod(n,n, MOD)-MultMod(3LL, n, MOD)+4+MOD)%MOD)/8)%MOD<<endl;;
+        cout<<  MultMod(
+                         MultMod(
+                                 MultMod(n, n+1),MultMod(n, n+1)
+                                 ),
+                          (MultMod(n,n) - MultMod(3LL, n) + 4 + MOD) %MOD
+                         )/8%MOD<<endl;;
     }
 	return 0;
 }
