@@ -79,6 +79,10 @@ string to_string(T value)
 }
 
 LL n;
+LL inv(LL a){
+	if(a == 1)return 1;
+	return inv(MOD%a)*(MOD-MOD/a)%MOD;
+}
 int main()
 {
 /*
@@ -95,12 +99,13 @@ int main()
         //cout<<MultMod(n, n+1, MOD)<<endl;
         //cout<<MultMod(n,n, MOD)<<endl;
         //cout<<MultMod(3LL, n, MOD)<<endl;
-        cout<<  MultMod(
+        cout<<MultMod(
+                        MultMod(
                          MultMod(
                                  MultMod(n, n+1),MultMod(n, n+1)
                                  ),
                           (MultMod(n,n) - MultMod(3LL, n) + 4 + MOD) %MOD
-                         )/8%MOD<<endl;;
+                         ), inv(8))<<endl;;
     }
 	return 0;
 }
